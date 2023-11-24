@@ -2,15 +2,18 @@ apt install curl
 echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 curl -L "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/Release.key" | sudo apt-key add -
 sudo apt update
-sudo apt update
+sudo apt install podman -y
 
 vi /etc/containers/registries.conf
 [registries.search]
 registries=["registry.access.redhat.com", "registry.fedoraproject.org", "quay.io", "docker.io"]
 
 apt install python3-virtualenv
-virtualenv -p python3.8 venv--ee-demo
-source venv--ee-demo/bin/activate
+mkdir ansible-builder
+virtualenv -p python3.8 venv-ee-demo
+source venv-ee-demo/bin/activate
 pip install ansible-builder
 
+git clone https://github.com/omarhd66/build-awx-ee.git
+cd build-awx-ee
 ansible-builder build -t umer-awx-ee -v 3
