@@ -1,5 +1,1 @@
-ansible
-ansible-pylibssh
-pyats
-ntc-templates
-netmiko
+ansible==2.9.11
