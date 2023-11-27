@@ -1,0 +1,32 @@
+---
+version: 1
+build_arg_defaults:
+  EE_BASE_IMAGE: quay.io/omarelhaoudar/awx-ee:custom-update2
+additional_build_steps:
+  prepend:
+    - RUN rm -rf $(find / -name *ansible*)
+    - RUN pip3 install --upgrade pip setuptools
+  append:
+    - RUN pip install ansible==2.9.11
+
+#ansible-builder build -t quay.io/omarelhaoudar/awx-ee:custom-update2-u  --container-runtime docker
+#docker build -t quay.io/omarelhaoudar/awx-ee:custom-update2-u .
+
+#[+] Building 281.9s (12/12) FINISHED                                                                                                                                docker:default
+# => [internal] load .dockerignore                                                                                                                                             0.1s
+# => => transferring context: 2B                                                                                                                                               0.0s
+# => [internal] load build definition from Dockerfile                                                                                                                          0.1s
+# => => transferring dockerfile: 590B                                                                                                                                          0.0s
+# => [internal] load metadata for quay.io/ansible/ansible-builder:latest                                                                                                       0.9s
+# => [internal] load metadata for quay.io/omarelhaoudar/awx-ee:custom-update2                                                                                                  0.0s
+# => CACHED [stage-2 1/6] FROM quay.io/omarelhaoudar/awx-ee:custom-update2                                                                                                     0.0s
+# => CACHED [builder 1/1] FROM quay.io/ansible/ansible-builder:latest@sha256:75c4e4b5be6aab3386381b1e202ad382002f6830fd4b524bcd5ddc718e4f6a89                                  0.0s
+# => [stage-2 2/6] RUN rm -rf $(find / -name *ansible*)                                                                                                                        1.4s
+# => [stage-2 3/6] RUN pip3 install --upgrade pip setuptools                                                                                                                   9.4s
+# => [stage-2 4/6] COPY --from=builder /output/ /output/                                                                                                                       0.4s
+# => [stage-2 5/6] RUN /output/install-from-bindep && rm -rf /output/wheels                                                                                                  223.8s
+# => [stage-2 6/6] RUN pip install ansible==2.9.11                                                                                                                            36.9s
+# => exporting to image                                                                                                                                                        8.4s
+# => => exporting layers                                                                                                                                                       8.4s
+# => => writing image sha256:d90f0bcc94399b01421e0c70b4f7e4d1023c043077d5c8ceee0e1ec9c833ef4d                                                                                  0.0s
+# => => naming to quay.io/omarelhaoudar/awx-ee:custom-update2-u
